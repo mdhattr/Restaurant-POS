@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid" style="background: #F7FBFF; height:100vh;">
+        <div class='row' style="background: #007A75; height: 12px;"></div>
+
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col-7 mt-5">
+                <div class="row">
+                    <h2>Table number: {{Table.number}}</h2>
+                </div>
+                <table class="table table-hover border bg-white">
+                    <thead>
+                        <tr>
+                            <th scope="col-auto">ID</th>
+                            <th scope="col-auto">Item</th>
+                            <th scope='col-auto'>Price</th>
+                            <th scope="col-auto"></th>
+                        </tr>
+                    </thead>
+                    {% for Receipt in Receipt %}
+                    <tbody>
+                        <tr>
+                            <td class="col-auto">{{Receipt.id}}</td>
+                            <td class="col-auto">{{Receipt.entree.name}} w/ {{Receipt.side.name}}</td>
+                            <td class="col-auto">${{Receipt.entree.menu_price|add:Receipt.side.menu_price}}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                    <tbody>
+                        <tr></tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total: ${{Table.bill_amount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row"><button type="button" class="btn btn-primary"><a href="/" style="color:white">Back to order form</a></button></div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'css/order.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid" style="background: #F7FBFF; height:100vh;">
+        <div class='row' style="background: #007A75; height: 12px;"></div>
+        <div class="row">
+            <div class="col-5 border-right border-dark m-5 pr-5">
+                <h1>Place your table's order here!</h1>
+                <table class="table">
+                    <form action="/order_food" method="post">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label for="table" class="col-sm-5 col-form-label ml-3">Table Number:</label>
+                            <div class="col-sm-6">
+                                <select name="table" class="form-control">
+                                    <option>Select</option>
+                                    {% for Table in Table %}
+                                    <option value="{{Table.id}}">{{Table.id}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="entree" class="col-sm-5 col-form-label ml-3">Entree:</label>
+                            <div class="col-sm-6">
+                                <select name="entree" class="form-control">
+                                    <option>Select</option>
+                                    {% for Entree in Entree %}
+                                    <option value="{{Entree.id}}">{{Entree.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="side" class="col-sm-5 col-form-label ml-3">Side:</label>
+                            <div class="col-sm-6">
+                                <select name="side" class="form-control">
+                                    <option>Select</option>
+                                    {% for Side in Side %}
+                                    <option value="{{Side.id}}">{{Side.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8"></div>
+                            <div class="col">
+                                <button class="btn btn-primary" type="submit">Place Order</button>
+                            </div>
+                        </div>
+                    </form>
+                </table>
+            </div>
+            <div class="col-5 m-5">
+                <div class="row">
+                    <h3>View Table Recipt</h3>
+                </div>
+                <div class="col">
+                    {% for Table in Table %}
+                    <button type="button" class="btn number"><a href="/view_receipt/{{Table.id}}" style="color:black">{{Table.id}}</a></button>
+                    {% endfor %}
+                </div>
+                <div class="row mt-5">Total Sales: ${{DayStats.total_sales}}</div>
+                <div class="row my-1">Meals Served: {{DayStats.meals_served}}</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

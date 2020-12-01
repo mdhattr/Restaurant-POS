@@ -1,0 +1,16 @@
+div.row.topBar{
+    position: absolute;
+    width: 1280px;
+    height: 12px;
+    left: 0px;
+    top: 0px;
+    background: #007A75;
+}
+.btn.number{
+    background-color: #CCECE6;
+    
+}
+.btn.number:hover{
+    background-color: #007A75;
+
+}
